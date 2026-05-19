@@ -1,0 +1,137 @@
+<html>
+        <head><title>Downloaded HTML</title></head>
+        <body>
+            <pre style="white-space: pre-wrap; word-wrap: break-word;"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harumanis Mango Ripening Rate & Derivatives</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .math-font { font-family: 'Times New Roman', Times, serif; font-style: italic; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <div class="max-w-5xl mx-auto px-4 py-8">
+        <header class="text-center mb-8 bg-emerald-700 text-white p-6 rounded-2xl shadow-md">
+            <span class="text-xs font-bold uppercase tracking-widest bg-emerald-900 px-3 py-1 rounded-full">SFP: Agro Product Technology Application</span>
+            <h1 class="text-3xl font-extrabold mt-2">Harumanis Mango Post-Harvest Quality Dynamics</h1>
+            <p class="text-emerald-100 mt-1">Optimizing Food Processing Schedules Using Calculus Derivatives</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1 space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h2 class="text-xl font-bold text-emerald-800 mb-3">The Bioscience Problem</h2>
+                    <p class="text-sm leading-relaxed text-slate-600">
+                        In agro-product processing, determining the exact ripening velocity of the **Perlis Harumanis Mango (Mangifera indica)** is crucial. Processing the mango into purees or freeze-dried snacks requires a precise Total Soluble Solids (TSS) content, measured in **°Brix**. 
+                    </p>
+                    <p class="text-sm leading-relaxed text-slate-600 mt-2">
+                        By modeling the sugar accumulation curve, the **first derivative $f'(x)$** tells agro-technologists the exact *rate of sugar accumulation per day*. The peak of this derivative represents the **Inflection Point**—the day of maximum ripening velocity, critical for timing enzymatic deactivation during processing.
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-400">
+                        <strong>Data Reference Framework:</strong> Based on realistic physiological ripening patterns established by the <em>Malaysian Agricultural Research and Development Institute (MARDI)</em> and the <em>Department of Agriculture (DOA) Malaysia</em>.
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h2 class="text-xl font-bold text-emerald-800 mb-3">Mathematical Modeling</h2>
+                    
+                    <div class="mb-4">
+                        <span class="block text-xs font-semibold uppercase text-slate-400">Sugar Content Function, $f(x)$</span>
+                        <div class="bg-slate-50 p-3 rounded-lg text-center font-mono my-1 text-sm text-emerald-900">
+                            $$f(x) = \frac{L}{1 + e^{-k(x - x_0)}}$$
+                        </div>
+                        <p class="text-xs text-slate-500">
+                            Where $L = 18.0^\circ\text{Brix}$ (Max sweetness), $k = 0.65$ (growth rate constant), and $x_0 = 5.0$ (mid-point day).
+                        </p>
+                    </div>
+
+                    <div>
+                        <span class="block text-xs font-semibold uppercase text-slate-400">Accumulation Rate Derivative, $f'(x)$</span>
+                        <div class="bg-slate-50 p-3 rounded-lg text-center font-mono my-1 text-sm text-amber-900">
+                            $$f'(x) = \frac{L \cdot k \cdot e^{-k(x - x_0)}}{(1 + e^{-k(x - x_0)})^2}$$
+                        </div>
+                        <p class="text-xs text-slate-500">
+                            Calculates the instantaneous change in sugar content ($\text{Brix/day}$) at exactly day $x$.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold text-slate-800">Interactive Harvesting Timeline</h2>
+                        <span class="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded font-medium animate-pulse">
+                            💡 Click any point on the line to analyze rate
+                        </span>
+                    </div>
+                    <div class="relative h-80 w-full">
+                        <canvas id="ripeningChart"></canvas>
+                    </div>
+                </div>
+
+                <div id="analysisPanel" class="bg-gradient-to-br from-slate-800 to-slate-900 text-white p-6 rounded-2xl shadow-lg transition-all duration-300 transform opacity-80">
+                    <div id="placeholderText" class="text-center py-4 text-slate-400">
+                        <p class="text-sm">Click on any data point along the curves above to trigger the derivative calculator.</p>
+                    </div>
+                    
+                    <div id="calcOutput" class="hidden">
+                        <div class="flex flex-wrap justify-between items-center border-b border-slate-700 pb-3 mb-4">
+                            <div>
+                                <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Selected Timeline Point</span>
+                                <h3 id="outDay" class="text-2xl font-bold">Day 0.0</h3>
+                            </div>
+                            <div class="flex space-x-6 mt-2 sm:mt-0">
+                                <div>
+                                    <span class="text-xs text-slate-400 block font-medium">Sugar Level $f(x)$</span>
+                                    <span id="outBrix" class="text-xl font-bold text-emerald-300">0.00 °Brix</span>
+                                </div>
+                                <div>
+                                    <span class="text-xs text-slate-400 block font-medium">Rate of Change $f'(x)$</span>
+                                    <span id="outRate" class="text-xl font-bold text-amber-400">0.00 Brix/day</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-amber-400 block mb-1">Agro-Product Layman Interpretation</span>
+                            <p id="outExplanation" class="text-sm text-slate-200 leading-relaxed italic">
+                                Select a point to populate data.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-12 text-center text-xs text-slate-400 border-t border-slate-200 pt-4">
+            Agro Product Technology Calculus Module &copy; 2026. Designed for interactive food science education.
+        </footer>
+    </div>
+
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        // Constants for the Logistic Ripening Equation Model
+        const L = 18.0;   // Maximum potential Brix value for high-grade Harumanis
+        const k = 0.65;   // Ripening velocity constant 
+        const x0 = 5.0;   // Inflection point (Day of maximum ripening speed)
+
+        // Generate Dataset points (Day 0 to Day 10 in half-day steps)
+        const labels = [];
+        const brixData = [];
+        const derivativeData = [];
+
+        for (let x = 0; x <= 10; x += 0.5) {
+            labels.push(x);</pre>
+        </body>
+    </html>
